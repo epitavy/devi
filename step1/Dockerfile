@@ -1,0 +1,16 @@
+FROM gcc:9.3.0
+# install build dependencies 
+RUN apt-get -y update \
+    && apt-get -y install \
+    cmake \
+    libboost-dev \
+    libfreeimage-dev \
+    libpoppler-cpp-dev\
+    libtesseract-dev \
+    ninja-build \
+    python3-pip \
+    && pip3 install conan \
+    && conan remote add lrde-public https://artifactory.lrde.epita.fr/artifactory/api/conan/lrde-public
+    #check package? pip3 list | grep -F setuptools && pip3 list | grep -F wheel 
+
+WORKDIR /app
