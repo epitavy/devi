@@ -11,3 +11,7 @@ cpack -G ZIP -G TGZ .
 echo "**********************"
 echo "BUILD COMPLETE"
 echo "**********************" 
+
+echo -n "Extracting libgcc_s.so and libstdc++.so ..."
+cp /usr/local/lib64/libgcc_s.so /usr/local/lib64/libstdc++.so /app/resources
+echo " Done"

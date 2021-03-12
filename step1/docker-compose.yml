@@ -1,10 +1,9 @@
 version: "3"
 
 services:
-  back-builder: 
+  back-builder:
     build: .
     volumes:
         - ../code:/app/
         - ../build.sh:/app/build.sh
     command: "sh build.sh"
-    

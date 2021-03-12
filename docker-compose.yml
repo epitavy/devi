@@ -1,9 +1,0 @@
-version: "3"
-
-services:
-  back-builder:
-    build: .
-    volumes:
-      - ./resources/code:/code
-      - ./artefacts:/artefacts
-    command: "sh build.sh"
