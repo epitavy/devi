@@ -13,5 +13,6 @@ echo "BUILD COMPLETE"
 echo "**********************" 
 
 echo -n "Extracting libgcc_s.so and libstdc++.so ..."
-cp /usr/local/lib64/libgcc_s.so /usr/local/lib64/libstdc++.so /app/resources
+mkdir -p /app/lib
+cp /usr/local/lib64/libgcc_s.so /usr/local/lib64/libstdc++.so.6 /app/lib
 echo " Done"

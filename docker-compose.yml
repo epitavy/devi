@@ -21,14 +21,21 @@ services:
       context: .
       dockerfile: Dockerfile.step2
 
-    # Bind mount app data
+    # Bind mount app data and server code
     volumes:
       - ./data/directories:/data/directories
       - ./data/annotations:/data/annotations
+      - ./code/back:/app/back
+      - ./code/resources:/app/resources
+      - ./code/server:/app/server
+      - ./code/lib:/app/lib
 
     # Make container available on port 8000
     ports:
       - "8000:8000"
 
     # On container run, start the server
-    command: "gunicorn -t 500 --bind 0.0.0.0:8000 --proxy-allow-from='*' server:app"
+    command: sh -c "
+            sh extract.sh
+            && gunicorn -t 500 --bind 0.0.0.0:8000 --proxy-allow-from='*' server:app
+          "
