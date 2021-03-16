@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  back-builder:
+    # Use Dockerfile.step1 to build the back-builder image
+    build:
+      context: .
+      dockerfile: Dockerfile.step1
+
+    # Bind mount code and build script
+    volumes:
+        - ./code:/app/
+        - ./build.sh:/app/build.sh
+
+    # On container run, execute the build script
+    command: "sh build.sh"
+
+  app:
+    # Use Dockerfile.step2 to build the app image
+    build:
+      context: .
+      dockerfile: Dockerfile.step2
+
+    # Bind mount app data
+    volumes:
+      - ./data/directories:/data/directories
+      - ./data/annotations:/data/annotations
+
+    # Make container available on port 8000
+    ports:
+      - "8000:8000"
+
+    # On container run, start the server
+    command: "gunicorn -t 500 --bind 0.0.0.0:8000 --proxy-allow-from='*' server:app"

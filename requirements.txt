@@ -11,3 +11,5 @@ python-dotenv==0.15.0
 regex==2020.11.13
 Unidecode==1.2.0
 Werkzeug==1.0.1
+fastspellchecker==0.0.4
+pytest==6.2.2
