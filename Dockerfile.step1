@@ -13,6 +13,8 @@ RUN apt-get -y update \
     # Python dependencies
     python3-pip \
     && pip3 install conan \
-    && conan remote add lrde-public https://artifactory.lrde.epita.fr/artifactory/api/conan/lrde-public
+    && conan remote add lrde-public https://artifactory.lrde.epita.fr/artifactory/api/conan/lrde-public \
+    # Remove apt-get cache
+    && apt-get clean && apt-get autoremove -y
 
 WORKDIR /app

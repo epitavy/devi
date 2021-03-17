@@ -6,7 +6,9 @@ RUN apt-get update -y && apt-get install -y \
     enchant \
     libpoppler-cpp0v5 \
     aspell-fr \
-    libtesseract4
+    libtesseract4 \
+    # Remove apt-get cache
+    && apt-get clean && apt-get autoremove -y
 
 # Copy artifacts
 COPY ./code/build/soduco-py37-0.1.1-Linux.tar.gz extract.sh /app/
