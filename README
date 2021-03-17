@@ -1,3 +1,5 @@
+AUTHORS: Eliaz Pitavy & Marie-Charlotte Calisto
+
 To build the images, you should have one folder names `code` with every resources and another one
 named `data` with the data (pdf etc). The root folder should follow this architecture:
 
