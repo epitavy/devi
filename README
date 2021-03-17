@@ -1,0 +1,36 @@
+To build the images, you should have one folder names `code` with every resources and another one
+named `data` with the data (pdf etc). The root folder should follow this architecture:
+
+
+├── build.sh
+├── code
+│   ├── back
+│   ├── CMakeLists.txt
+│   ├── conanfile.txt
+│   ├── resources
+│   ├── server
+│   ├── sources
+│   └── thirdparty
+├── data
+│   └── directories
+├── docker-compose.yml
+├── Dockerfile.step1
+├── Dockerfile.step2
+├── extract.sh
+├── README
+├── requirements.txt
+8 directories, 9 files
+
+Step 3.1
+Then build the back-builder image and compile the code with:
+```
+docker-compose build back-builder
+docker-compose up back-builder
+```
+
+Step 3.2:
+Then build the app image and run the server with:
+```
+docker-compose build app
+docker-compose up app
+```
