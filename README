@@ -36,3 +36,10 @@ Then build the app image and run the server with:
 docker-compose build app
 docker-compose up app
 ```
+
+Step 4:
+To build the multi-stage build and run the server:
+```
+docker-compose build step4
+docker-compose up step4
+```
