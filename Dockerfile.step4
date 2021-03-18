@@ -1,0 +1,50 @@
+FROM gcc:9.3.0 as step1
+
+# install build dependencies 
+RUN apt-get -y update \
+    && apt-get -y install \
+    cmake \
+    libboost-dev \
+    libfreeimage-dev \
+    libpoppler-cpp-dev\
+    libtesseract-dev \
+    ninja-build \
+    # Python dependencies
+    python3-pip \
+    && pip3 install conan \
+    && conan remote add lrde-public https://artifactory.lrde.epita.fr/artifactory/api/conan/lrde-public \
+    # Remove apt-get cache
+    && apt-get clean && apt-get autoremove -y
+
+
+COPY ./code app/
+WORKDIR /app
+COPY build.sh build.sh
+RUN sh build.sh
+
+
+
+
+
+FROM python:3.7-slim as step2
+
+RUN apt-get update -y && apt-get install -y \
+    tesseract-ocr-fra \
+    libfreeimage3 \
+    enchant \
+    libpoppler-cpp0v5 \
+    aspell-fr \
+    libtesseract4 \
+    # Remove apt-get cache
+    && apt-get clean && apt-get autoremove -y
+
+# Copy artifacts
+COPY ./code/build/soduco-py37-0.1.1-Linux.tar.gz extract.sh /app/
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt --no-cache-dir
+
+# Set extra lib dir and locale
+ENV LD_LIBRARY_PATH=/app/lib LC_ALL=C
+
+WORKDIR /app

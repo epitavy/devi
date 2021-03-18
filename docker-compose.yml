@@ -39,3 +39,28 @@ services:
             sh extract.sh
             && gunicorn -t 500 --bind 0.0.0.0:8000 --proxy-allow-from='*' server:app
           "
+  step4:
+    # Use Dockerfile.step1 to build the back-builder image
+    build:
+      context: .
+      dockerfile: Dockerfile.step4
+
+    # Bind mount code and build script
+    volumes:
+        - ./code/back:/app/back
+        - ./code/resources:/app/resources
+        - ./code/server:/app/server
+        - ./code/lib:/app/lib
+        - ./build.sh:/app/build.sh
+        - ./data/directories:/data/directories
+        - ./data/annotations:/data/annotations
+        
+        # Make container available on port 8000
+    ports:
+      - "8000:8000"
+
+    # On container run, start the server
+    command: sh -c "
+            sh extract.sh
+            && gunicorn -t 500 --bind 0.0.0.0:8000 --proxy-allow-from='*' server:app
+          "
